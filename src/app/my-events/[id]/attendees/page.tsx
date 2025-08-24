@@ -16,41 +16,70 @@ type RSVP = {
   };
 };
 
-async function getEventWithAttendees(eventId: string, userId: string) {
-  const event = await prisma.event.findUnique({
-    where: { id: eventId },
-    include: {
-      rsvps: {
-        include: {
-          user: true,
+async function getEventWithAttendees(eventId: string, userId: string, userRole: string) {
+  try {
+    const event = await prisma.event.findUnique({
+      where: { id: eventId },
+      include: {
+        owner: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
         },
-        orderBy: {
-          createdAt: 'asc',
+        rsvps: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+          },
+          orderBy: {
+            createdAt: 'asc',
+          },
         },
       },
-    },
-  });
+    });
 
-  if (!event || event.ownerId !== userId) {
+    if (!event) {
+      console.log(`Event not found: ${eventId}`);
+      notFound();
+    }
+
+    // Check if user has permission to view attendees
+    // Allow if: user owns the event OR user is admin/staff
+    const isOwner = event.ownerId === userId;
+    const isAdminOrStaff = userRole === 'ADMIN' || userRole === 'STAFF';
+
+    if (!isOwner && !isAdminOrStaff) {
+      console.log(`Access denied for user ${userId} to event ${eventId}. Owner: ${event.ownerId}, Role: ${userRole}`);
+      notFound();
+    }
+    
+    return event;
+  } catch (error) {
+    console.error(`Error fetching event ${eventId}:`, error);
     notFound();
   }
-  
-  return event;
 }
 
 export default async function AttendeesPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.email) {
-    redirect('/api/auth/signin');
+    redirect('/signin');
   }
 
   const user = await prisma.user.findUnique({ where: { email: session.user.email } });
   if (!user) {
-    redirect('/api/auth/signin');
+    redirect('/signin');
   }
 
   const resolvedParams = await params;
-  const event = await getEventWithAttendees(resolvedParams.id, user.id);
+  const event = await getEventWithAttendees(resolvedParams.id, user.id, user.role);
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 sm:p-8">

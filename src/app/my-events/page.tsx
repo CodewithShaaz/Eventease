@@ -34,13 +34,13 @@ export default async function MyEventsPage() {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user?.email) {
-    redirect('/api/auth/signin');
+    redirect('/signin');
   }
 
   const currentUser = await getCurrentUser();
   
   if (!currentUser) {
-    redirect('/api/auth/signin');
+    redirect('/signin');
   }
 
   const events = await getManagedEvents() as Event[];
