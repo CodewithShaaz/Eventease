@@ -2,6 +2,18 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
 
+// Cache stats for 5 minutes to reduce database load
+interface StatsData {
+  totalEvents: number;
+  totalUsers: number;
+  totalRSVPs: number;
+  activeEvents: number;
+  lastUpdated: string;
+}
+
+let statsCache: { data: StatsData; timestamp: number } | null = null;
+const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes in milliseconds
+
 export async function GET() {
   try {
     const currentUser = await getCurrentUser();
@@ -14,7 +26,18 @@ export async function GET() {
       );
     }
 
-    // Get dashboard statistics
+    // Check if we have valid cached data
+    const now = Date.now();
+    if (statsCache && (now - statsCache.timestamp) < CACHE_DURATION) {
+      return NextResponse.json(statsCache.data, { 
+        status: 200,
+        headers: {
+          'Cache-Control': 'private, max-age=300', // 5 minutes
+        }
+      });
+    }
+
+    // Get dashboard statistics with optimized queries
     const [totalEvents, totalUsers, totalRSVPs, activeEventsCount] = await Promise.all([
       // Total events
       prisma.event.count(),
@@ -40,9 +63,21 @@ export async function GET() {
       totalUsers,
       totalRSVPs,
       activeEvents: activeEventsCount,
+      lastUpdated: new Date().toISOString(),
     };
 
-    return NextResponse.json(stats, { status: 200 });
+    // Cache the results
+    statsCache = {
+      data: stats,
+      timestamp: now,
+    };
+
+    return NextResponse.json(stats, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'private, max-age=300', // 5 minutes
+      }
+    });
 
   } catch (error) {
     console.error('Error fetching admin stats:', error);
