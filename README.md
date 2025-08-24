@@ -57,11 +57,16 @@
 
 ## 🚀 Live Demo
 
-> **Note**: Replace with your actual deployment URL when available
+**🎉 EventEase is now live and ready to use!**
 
 ```
-🌐 Live URL: https://your-eventease-app.vercel.app
+🌐 Live URL: https://eventease-vv88.onrender.com
 ```
+
+**Try it out with these sample credentials:**
+- **Admin**: admin@eventease.com / admin123
+- **Event Owner**: owner@eventease.com / owner123
+- **Attendee**: user@eventease.com / user123
 
 ## 🛠️ Tech Stack
 
