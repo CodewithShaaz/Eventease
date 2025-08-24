@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
+import { UserRole } from '@prisma/client';
 
 interface UpdateRoleRequest {
   userId: string;
@@ -34,7 +35,7 @@ export async function POST(request: Request) {
     // Update user role
     const updatedUser = await prisma.user.update({
       where: { id: userId },
-      data: { role },
+      data: { role: role as UserRole },
       select: {
         id: true,
         name: true,

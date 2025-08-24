@@ -1,5 +1,5 @@
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth-config';
 import { redirect, notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
@@ -38,7 +38,7 @@ async function getEventWithAttendees(eventId: string, userId: string) {
   return event;
 }
 
-export default async function AttendeesPage({ params }: { params: { id: string } }) {
+export default async function AttendeesPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
   if (!session || !session.user?.email) {
     redirect('/api/auth/signin');

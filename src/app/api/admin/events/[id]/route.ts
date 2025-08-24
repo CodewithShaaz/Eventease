@@ -4,7 +4,7 @@ import { getCurrentUser, canManageEvent } from '@/lib/auth';
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const resolvedParams = await params;
   const eventId = resolvedParams.id;

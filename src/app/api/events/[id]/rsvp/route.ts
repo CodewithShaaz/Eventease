@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth-config';
 
 interface RSVPRequestBody {
   name?: unknown;
@@ -36,7 +36,7 @@ function validateRSVPData(body: RSVPRequestBody) {
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const resolvedParams = await params;
   const eventId = resolvedParams.id;
