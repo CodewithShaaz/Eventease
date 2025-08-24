@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enum for User Roles
+enum UserRole {
+  ADMIN
+  STAFF
+  EVENT_OWNER
+  ATTENDEE
+}
+
+// User Model
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  password  String    // We'll handle hashing in the auth setup
+  role      UserRole  @default(EVENT_OWNER)
+  events    Event[]   // A user can create many events
+  rsvps     RSVP[]    // A user can have many RSVPs
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Event Model - Updated with a relation to User
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  location    String?
+  date        DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  ownerId     String    // Foreign key for the user who owns the event
+  owner       User      @relation(fields: [ownerId], references: [id])
+  
+  rsvps       RSVP[]    // An event can have many RSVPs
+}
+
+// RSVP Model
+model RSVP {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  eventId   String   // Foreign key for the event
+  event     Event    @relation(fields: [eventId], references: [id])
+  
+  userId    String   // Foreign key for the user RSVPing
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([eventId, userId]) // Ensures a user can only RSVP once per event
+}
