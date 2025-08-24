@@ -113,7 +113,7 @@ export default function Navbar() {
             ) : (
               <div className="hidden md:flex items-center space-x-2">
                 <Button variant="ghost" asChild>
-                  <Link href="/api/auth/signin">
+                  <Link href="/signin">
                     <LogIn className="h-4 w-4 mr-2" />
                     Sign In
                   </Link>
@@ -199,7 +199,7 @@ export default function Navbar() {
                 ) : (
                   <div className="space-y-1">
                     <Link
-                      href="/api/auth/signin"
+                      href="/signin"
                       className="block px-3 py-2 text-base font-medium text-blue-600 hover:bg-blue-50 rounded-md"
                       onClick={() => setIsMenuOpen(false)}
                     >

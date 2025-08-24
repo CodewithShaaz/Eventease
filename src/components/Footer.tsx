@@ -47,7 +47,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/api/auth/signin" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/signin" className="text-gray-300 hover:text-white transition-colors">
                   Sign In
                 </Link>
               </li>
