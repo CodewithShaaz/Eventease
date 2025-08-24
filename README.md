@@ -60,7 +60,7 @@
 **🎉 EventEase is now live and ready to use!**
 
 ```
-🌐 Live URL: https://eventease-vv88.onrender.com
+🌐 Live URL: https://eventease01.vercel.app
 ```
 
 **Try it out with these sample credentials:**

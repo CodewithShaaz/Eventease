@@ -111,8 +111,9 @@ export default function SignInPage() {
               <p className="text-xs text-blue-800 mb-2 font-medium">Sample Test Credentials:</p>
               <div className="text-xs text-blue-700 space-y-1">
                 <p><strong>Admin:</strong> admin@eventease.com / admin123</p>
-                <p><strong>Event Owner:</strong> owner@eventease.com / owner123</p>
-                <p><strong>Attendee:</strong> user@eventease.com / user123</p>
+                <p><strong>Event Owner:</strong> owner@test.com / owner123</p>
+                <p><strong>Staff:</strong> john@test.com / aA12345</p>
+                <p><strong>Attendee:</strong>  attendee1@test.com / password123</p>
               </div>
             </div>
           </CardContent>
