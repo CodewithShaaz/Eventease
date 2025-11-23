@@ -1,27 +1,12 @@
 # 🎉 EventEase
 
 **A modern, full-stack event management platform built with Next.js 15, TypeScript, and PostgreSQL**
+![Demo Video](demo.gif)
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5.0-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-
-## 📋 Table of Contents
-
-- [🌟 Features](#-features)
-- [🚀 Live Demo](#-live-demo)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [🏃‍♂️ Quick Start](#️-quick-start)
-- [⚙️ Environment Setup](#️-environment-setup)
-- [🗃️ Database Setup](#️-database-setup)
-- [👤 User Roles & Permissions](#-user-roles--permissions)
-- [🔐 Sample Credentials](#-sample-credentials)
-- [📱 API Endpoints](#-api-endpoints)
-- [🎨 UI Components](#-ui-components)
-- [📝 Scripts](#-scripts)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
 
 ## 🌟 Features
 
