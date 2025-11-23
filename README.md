@@ -60,13 +60,14 @@
 **🎉 EventEase is now live and ready to use!**
 
 ```
-🌐 Live URL: https://eventease01.vercel.app
+🌐 Live URL: https://eventease-site.onrender.com
 ```
 
 **Try it out with these sample credentials:**
 - **Admin**: admin@eventease.com / admin123
-- **Event Owner**: owner@eventease.com / owner123
-- **Attendee**: user@eventease.com / user123
+- **Staff**: john@test.com / aA12345
+- **Event Owner**: owner@test.com / owner123
+- **Attendee**: attendee1@test.com / password123
 
 ## 🛠️ Tech Stack
 
@@ -85,9 +86,9 @@
 - **Password Hashing**: bcryptjs
 
 ### **Database**
-- **Database**: PostgreSQL
+- **Database**: PostgreSQL (Neon)
 - **ORM**: Prisma
-- **Hosting**: Render (or your preferred provider)
+- **Hosting**: Neon (Serverless PostgreSQL)
 
 ### **Development**
 - **Package Manager**: npm
@@ -171,10 +172,16 @@ createdb eventease
 DATABASE_URL="postgresql://yourusername@localhost:5432/eventease"
 ```
 
-### Using Cloud Database (Render/Railway/Supabase)
+### Using Cloud Database (Neon - Recommended)
+1. Sign up at https://console.neon.tech/
+2. Create a new project (free tier available)
+3. Copy the connection string to your `.env` file
+4. Run migrations: `npx prisma db push`
+
+### Alternative: Railway/Supabase/Render
 1. Create a PostgreSQL instance on your preferred platform
 2. Copy the connection string to your `.env` file
-3. Run migrations: `npx prisma migrate dev`
+3. Run migrations: `npx prisma db push`
 
 ### Database Schema
 ```sql
@@ -377,14 +384,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Prisma Team** - For the excellent database toolkit
 - **Tailwind CSS** - For the utility-first CSS framework
 - **Radix UI** - For accessible component primitives
-- **Vercel** - For hosting and deployment platform
+- **Render** - For hosting and deployment platform
+- **Neon** - For serverless PostgreSQL database
 
 ---
 
 <div align="center">
 
-**Built with ❤️ by [Md Shaaz Ahmed]**
+**Built with ❤️ by Md Shaaz Ahmed**
 
-[🌐 Live Demo](https://your-app.vercel.app) • [📧 Contact](mailto:your.email@example.com) • [🐛 Report Bug](https://github.com/yourusername/eventease/issues)
+[🌐 Live Demo](https://eventease-site.onrender.com) • [📧 Contact](mailto:codewithshaaz@example.com) • [🐛 Report Bug](https://github.com/CodewithShaaz/Eventease/issues)
 
 </div>

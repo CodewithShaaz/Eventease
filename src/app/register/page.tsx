@@ -107,7 +107,7 @@ export default function RegisterPage() {
         body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim().toLowerCase(),
-          password: formData.password,
+          password: formData.password.trim(),
         }),
       });
 
@@ -119,7 +119,7 @@ export default function RegisterPage() {
         // Auto-sign in the user after successful registration
         const signInResult = await signIn('credentials', {
           email: formData.email.trim().toLowerCase(),
-          password: formData.password,
+          password: formData.password.trim(),
           redirect: false,
         });
 
